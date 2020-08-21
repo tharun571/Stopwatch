@@ -48,7 +48,7 @@ public class Canvas extends View {
 
 
     }
-    boolean start=false;
+    boolean start=false,progress=false;
 
     @Override
     protected void onDraw(android.graphics.Canvas canvas) {
@@ -79,13 +79,14 @@ public class Canvas extends View {
             }
     }
 
-        canvas.drawLine(y1,x1,y2,x2,paintclocklayout);
-        canvas.drawLine(a1,b1,a2,b2,paintclocklayout);
+
+            canvas.drawLine(y1, x1, y2, x2, paintclocklayout);
+            canvas.drawLine(a1, b1, a2, b2, paintclocklayout);
 
 
 
     }
-    int s=0;
+    int s=0,m=0;
     private void stopwatch(){
 
         if(start) {
@@ -96,15 +97,21 @@ public class Canvas extends View {
                 public void run() {
                     while (!Thread.interrupted())
                         try {
+                            if(progress){
+                                return;
+                            }
                             Thread.sleep(1000);
                             if (s == 60) {
-                                a2 = 500 + (float) (180 * Math.sin(Math.toRadians(s * 6)));
-                                b2 = 250 - (float) (180 * Math.cos(Math.toRadians(s * 6)));
+                                a2 = 500 + (float) (180 * Math.sin(Math.toRadians(m * 6)));
+                                b2 = 250 - (float) (180 * Math.cos(Math.toRadians(m * 6)));
+                                m++;
                             }
                             Log.w("QWE", "QWE " + Math.cos(Math.toRadians(s * 6)));
                             x2 = 500 - (float) (450 * Math.cos(Math.toRadians(s * 6)));
                             y2 = 500 + (float) (450 * Math.sin(Math.toRadians(s * 6)));
-                            s++;
+                            if(start) {
+                                s++;
+                            }
                             postInvalidate();
                         } catch (InterruptedException e) {
                             // ooops
@@ -118,6 +125,7 @@ public class Canvas extends View {
     public void start(){
         if(start==false) {
             start = true;
+            progress=false;
             stopwatch();
         }
 
@@ -125,17 +133,33 @@ public class Canvas extends View {
 
     public void reset(){
         start=false;
+        progress=true;
 
         s=0;
+        m=0;
         a2 = 500 + (float) (180 * Math.sin(Math.toRadians(s * 6)));
         b2 = 250 - (float) (180 * Math.cos(Math.toRadians(s * 6)));
-
-
-    x2= 500-(float) (450*Math.cos(Math.toRadians(s*6)));
-    y2= 500+(float) (450*Math.sin(Math.toRadians(s*6)));
+        x2= 500-(float) (450*Math.cos(Math.toRadians(s*6)));
+        y2= 500+(float) (450*Math.sin(Math.toRadians(s*6)));
 
     postInvalidate();
 
+
+    }
+
+    public void stop(){
+
+        start=false;
+        progress=true;
+
+        a2 = 500 + (float) (180 * Math.sin(Math.toRadians(m * 6)));
+        b2 = 250 - (float) (180 * Math.cos(Math.toRadians(m * 6)));
+
+
+        x2= 500-(float) (450*Math.cos(Math.toRadians(s*6)));
+        y2= 500+(float) (450*Math.sin(Math.toRadians(s*6)));
+
+        postInvalidate();
 
     }
 }
