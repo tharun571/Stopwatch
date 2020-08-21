@@ -30,5 +30,13 @@
         android:text="start"
         android:layout_above="@+id/stop"
         android:id="@+id/start"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="8dp"
+        android:layout_height="wrap_content"
+        android:text="stop"
+        android:layout_marginBottom="8dp"
+        android:layout_above="@+id/start"
+        android:id="@+id/stopp"/>
 
 </RelativeLayout>

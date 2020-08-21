@@ -8,7 +8,7 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button start,reset;
+    Button start,reset,stop;
     private Canvas canvas;
 
     @Override
@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
         start=(Button)findViewById(R.id.start);
         reset=(Button)findViewById(R.id.stop);
+        stop=(Button)findViewById(R.id.stopp);
 
         canvas=(Canvas)findViewById(R.id.canvas);
 
@@ -34,6 +35,12 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 canvas.reset();
+            }
+        });
+        stop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                canvas.stop();
             }
         });
 
