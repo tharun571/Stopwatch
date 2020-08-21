@@ -58,7 +58,7 @@ public class Canvas extends View {
 
         Paint paintclocklayout=new Paint(Paint.ANTI_ALIAS_FLAG);
         paintclocklayout.setColor(Color.parseColor("#000000"));
-        paintclocklayout.setStrokeWidth(5);
+        paintclocklayout.setStrokeWidth(4);
         paintclocklayout.setStyle(Paint.Style.STROKE);
         canvas.drawCircle(y1,x1,500,paintclocklayout);
         canvas.drawCircle(a1,b1,200,paintclocklayout);
@@ -68,10 +68,16 @@ public class Canvas extends View {
         canvas.drawCircle(y1,x1,5,paint);
         canvas.drawCircle(a1,b1,5,paint);
 
-        for(int i=1;i<=12;i++){
-            canvas.drawText(""+i,500 + (float) (475 * Math.sin(Math.toRadians(i * 30))),500 - (float) (475 * Math.cos(Math.toRadians((i * 30)))),paint);
-            canvas.drawText(""+i,500 + (float) (190 * Math.sin(Math.toRadians(i * 30))),250 - (float) (190 * Math.cos(Math.toRadians((i * 30)))),paint);
-        }
+        for(int i=0;i<60;i++){
+            if(i%5==0){
+            canvas.drawCircle(500 + (float) (475 * Math.sin(Math.toRadians(i * 6))),500 - (float) (475 * Math.cos(Math.toRadians((i * 6)))),5,paint);
+            canvas.drawCircle(500 + (float) (190 * Math.sin(Math.toRadians(i * 6))),250 - (float) (190 * Math.cos(Math.toRadians((i * 6)))),3,paint);
+    }
+            else{
+                canvas.drawCircle(500 + (float) (475 * Math.sin(Math.toRadians(i * 6))),500 - (float) (475 * Math.cos(Math.toRadians((i * 6)))),3,paint);
+                canvas.drawCircle(500 + (float) (190 * Math.sin(Math.toRadians(i * 6))),250 - (float) (190 * Math.cos(Math.toRadians((i * 6)))),1,paint);
+            }
+    }
 
         canvas.drawLine(y1,x1,y2,x2,paintclocklayout);
         canvas.drawLine(a1,b1,a2,b2,paintclocklayout);
@@ -110,9 +116,10 @@ public class Canvas extends View {
     }
 
     public void start(){
-        start=true;
-        stopwatch();
-
+        if(start==false) {
+            start = true;
+            stopwatch();
+        }
 
     }
 
